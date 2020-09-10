@@ -2,21 +2,25 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/dailyburn/ratchet"
 	"github.com/dailyburn/ratchet/logger"
 	"github.com/dailyburn/ratchet/processors"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/rkulla/ratchet-examples/example1/packages"
+
+	//	"github.com/rkulla/ratchet-examples/example1/packages"
+	mypkg "github.com/ratchet-examples/example1/packages"
 )
 
 // The simplest Ratchet program. Consists of a pipeline with just
 // Extract and Load stages, no transformer.
 func main() {
-	inputDB := setupDB("mysql", "root:@tcp(127.0.0.1:3306)/srcDB")
+	fmt.Println("Start Test....!")
+	inputDB := setupDB("mysql", "root:root123@tcp(127.0.0.1:13306)/srcDB")
 	extractDP := processors.NewSQLReader(inputDB, mypkg.Query(5))
 
-	outputDB := setupDB("mysql", "root@tcp(127.0.0.1:3306)/dstDB")
+	outputDB := setupDB("mysql", "root:root123@tcp(127.0.0.1:13306)/dstDB")
 	outputTable := "users2"
 	loadDP := processors.NewSQLWriter(outputDB, outputTable)
 
