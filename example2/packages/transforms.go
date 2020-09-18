@@ -1,6 +1,8 @@
 package mypkg
 
 import (
+	"fmt"
+
 	"github.com/dailyburn/ratchet/data"
 	"github.com/dailyburn/ratchet/util"
 )
@@ -13,6 +15,7 @@ func NewMyTransformer() *myTransformer {
 }
 
 func (t *myTransformer) ProcessData(d data.JSON, outputChan chan data.JSON, killChan chan error) {
+	fmt.Println("FUNC: ProcessData")
 	// Step 1: Unmarshal json into slice of ReceivedData structs
 	var users []ReceivedData
 	var transforms []TransformedData
@@ -23,8 +26,12 @@ func (t *myTransformer) ProcessData(d data.JSON, outputChan chan data.JSON, kill
 	// Step 2: Loop through slice and transform data
 	for _, user := range users {
 		transform := TransformedData{}
-		transform.UserID = user.ID
-		transform.SomeNewField = "whatever"
+		transform.KrewID = user.ID
+		//transform.KrewName = "whatever"
+		transform.KrewName = user.Name
+		transform.Email = user.Email
+		transform.Mobile = user.Phone
+		transform.JobCode = user.JobCd
 		transforms = append(transforms, transform)
 	}
 
@@ -36,7 +43,9 @@ func (t *myTransformer) ProcessData(d data.JSON, outputChan chan data.JSON, kill
 	}
 }
 
-func (t *myTransformer) Finish(outputChan chan data.JSON, killChan chan error) {}
+func (t *myTransformer) Finish(outputChan chan data.JSON, killChan chan error) {
+	fmt.Println("myTransformer: Finish")
+}
 
 func (t *myTransformer) String() string {
 	return "myTransformer"

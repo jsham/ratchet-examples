@@ -7,18 +7,18 @@ import (
 	"github.com/dailyburn/ratchet/logger"
 	"github.com/dailyburn/ratchet/processors"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/rkulla/ratchet-examples/example3/packages"
+	mypkg "github.com/ratchet-examples/example3/packages"
 )
 
 // Uses a branching pipeline
 func main() {
-	inputDB := setupDB("mysql", "root:@tcp(127.0.0.1:3306)/srcDB")
-	extractDP := processors.NewSQLReader(inputDB, mypkg.Query(5))
+	inputDB := setupDB("mysql", "root:root123@tcp(127.0.0.1:13306)/srcDB")
+	extractDP := processors.NewSQLReader(inputDB, mypkg.Query(0))
 
 	transformDP := mypkg.NewMyTransformer()
 
-	outputDB := setupDB("mysql", "root@tcp(127.0.0.1:3306)/dstDB")
-	outputTable := "users2"
+	outputDB := setupDB("mysql", "root:root123@tcp(127.0.0.1:13306)/dstDB")
+	outputTable := "krew_info"
 	loadDP := processors.NewSQLWriter(outputDB, outputTable)
 
 	// Simple example of how to start a Branching Pipeline.

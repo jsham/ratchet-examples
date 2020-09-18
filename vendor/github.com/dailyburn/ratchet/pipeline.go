@@ -136,7 +136,8 @@ func (p *Pipeline) runStages(killChan chan error) {
 					exitChans = append(exitChans, dp.processData(d, killChan))
 				}
 
-				// Wait until everything is finished before calling dp.Finish.  Since execution happens asynchronously, we may still be waiting on a processData call to return.
+				// Wait until everything is finished before calling dp.Finish.
+				// Since execution happens asynchronously, we may still be waiting on a processData call to return.
 				for i := range exitChans {
 					<-exitChans[i]
 				}

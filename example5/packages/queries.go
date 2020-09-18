@@ -5,11 +5,13 @@ import (
 	"strings"
 
 	"github.com/dailyburn/ratchet/data"
+	"github.com/dailyburn/ratchet/logger"
 )
 
 // Filter out users with IDs less than 400
 func Query1() string {
-	return fmt.Sprintf(`SELECT id, name FROM users WHERE id >= 400`)
+	queryStr := fmt.Sprintf(`SELECT id, name FROM users WHERE id >= 400`)
+	return queryStr
 }
 
 // Get the cities for just the UserIDs we received from previous stage
@@ -19,16 +21,9 @@ func Query2(usersJSON data.JSON) (string, error) {
 		panic(err)
 	}
 
-	sql := fmt.Sprintf(`
-		SELECT 
-			id, 
-			city 
-		FROM 
-			addresses
-		WHERE
-	`)
-
+	sql := fmt.Sprintf(` SELECT id, city FROM addresses WHERE `)
 	sql += fmt.Sprintf("id IN (%v)", strings.Join(userIDs, ","))
+	logger.Info("sql: ", sql)
 
 	return sql, nil
 }

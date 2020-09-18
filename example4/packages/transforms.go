@@ -20,11 +20,14 @@ func (t *myTransformer) ProcessData(d data.JSON, outputChan chan data.JSON, kill
 	// Step 1: Unmarshal json into ReceivedData1 or ReceivedData2
 	var users []ReceivedData1
 	var addresses []ReceivedData2
+
 	if t.validateAndParseUsers(d, &users) {
-		logger.Debug("data parsed into []ReceivedData1")
+		//logger.Debug("data parsed into []ReceivedData1")
+		logger.Info("data parsed into []ReceivedData1")
 		t.processedUserData = append(t.processedUserData, users...)
 	} else if t.validateAndParseAddresses(d, &addresses) {
-		logger.Debug("data parsed into []ReceivedData2")
+		//logger.Debug("data parsed into []ReceivedData2")
+		logger.Info("data parsed into []ReceivedData2")
 		t.processedAddressData = append(t.processedAddressData, addresses...)
 	}
 }

@@ -7,18 +7,18 @@ import (
 	"github.com/dailyburn/ratchet/logger"
 	"github.com/dailyburn/ratchet/processors"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/rkulla/ratchet-examples/example4/packages"
+	mypkg "github.com/ratchet-examples/example4/packages"
 )
 
 // Builds on example3
 func main() {
-	inputDB := setupDB("mysql", "root:@tcp(127.0.0.1:3306)/srcDB")
+	inputDB := setupDB("mysql", "root:root123@tcp(127.0.0.1:13306)/srcDB")
 	extractDP := processors.NewSQLReader(inputDB, mypkg.Query1())
 	extractDP2 := processors.NewSQLReader(inputDB, mypkg.Query2())
 
 	transformDP := mypkg.NewMyTransformer()
 
-	outputDB := setupDB("mysql", "root@tcp(127.0.0.1:3306)/dstDB")
+	outputDB := setupDB("mysql", "root:root123@tcp(127.0.0.1:13306)/dstDB")
 	outputTable := "users2"
 	loadDP := processors.NewSQLWriter(outputDB, outputTable)
 
@@ -36,7 +36,7 @@ func main() {
 	)
 
 	pipeline := ratchet.NewBranchingPipeline(layout)
-	pipeline.Name = "My Pipeline"
+	pipeline.Name = "ETL Pipeline"
 
 	err = <-pipeline.Run()
 	if err != nil {

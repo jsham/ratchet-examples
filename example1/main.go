@@ -8,8 +8,6 @@ import (
 	"github.com/dailyburn/ratchet/logger"
 	"github.com/dailyburn/ratchet/processors"
 	_ "github.com/go-sql-driver/mysql"
-
-	//	"github.com/rkulla/ratchet-examples/example1/packages"
 	mypkg "github.com/ratchet-examples/example1/packages"
 )
 
