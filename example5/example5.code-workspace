@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../dailyburn"
+		},
+		{
+			"path": "../example4"
+		},
+		{
+			"path": "../example3"
+		},
+		{
+			"path": "../../02_Date"
+		}
+	]
+}
